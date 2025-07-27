@@ -1,16 +1,11 @@
 package guru.springframework.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes {
     @Id
@@ -22,4 +17,5 @@ public class Notes {
 
     @Lob
     private String recipeNotes;
+
 }
