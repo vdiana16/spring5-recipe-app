@@ -55,7 +55,18 @@
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
+			<version>1.18.30</version>
 			<artifactId>lombok</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>bootstrap</artifactId>
+			<version>5.3.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars.npm</groupId>
+			<artifactId>jquery</artifactId>
+			<version>3.7.1</version>
 		</dependency>
 	</dependencies>
 
