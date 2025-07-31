@@ -2,70 +2,72 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>List Ingredients</title>
+    <title>Ingredients</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
           crossorigin="anonymous"/>
 
     <script src="/webjars/jquery/3.7.1/jquery.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
             crossorigin="anonymous"></script>
 </head>
 <body>
 
+<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<!--/*@thymesVar id="ingredients" type="java.util.Set<guru.springframework.commands.IngredientCommand>"*/-->
+
 <div class="container my-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card border-primary">
+        <div class="col-md-10">
 
-                <div class="card-header bg-primary text-white">
-                    <h1 class="card-title mb-0" th:text="'Ingredients for: ' + ${recipe.description}">Ingredients</h1>
+            <div class="card shadow">
+                <div class="card-header d-flex justify-content-between align-items-center bg-primary text-white">
+                    <h3 class="mb-0">Ingredients</h3>
+                    <a class="btn btn-light btn-sm" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}">+ New</a>
                 </div>
 
                 <div class="card-body">
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
-                        <table class="table table-hover">
-                            <thead class="table-light">
-                            <tr>
-                                <th>ID</th>
-                                <th>Description</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="ingredient : ${recipe.ingredients}">
-                                <td th:text="${ingredient.id}">123</td>
-                                <td th:text="${ingredient.amount + ' ' + (ingredient.uom != null ? ingredient.uom.description : '') + ' ' + ingredient.description}">
-                                    1 Cup Sugar
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-outline-primary"
-                                       th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-outline-secondary"
-                                       th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-sm btn-outline-danger"
-                                       th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div th:if="${not #lists.isEmpty(recipe.ingredients)}">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered align-middle">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                    <th>View</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ingredient : ${recipe.ingredients}">
+                                    <td th:text="${ingredient.id}">ID</td>
+                                    <td th:text="${ingredient.amount + ' ' + ingredient.uom.description + ' ' + ingredient.description}">Ingredient info</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-info text-white"
+                                           th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning"
+                                           th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-danger"
+                                           th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/delete'}">Delete</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
                     <div th:if="${#lists.isEmpty(recipe.ingredients)}">
-                        <p class="text-muted">No ingredients found for this recipe.</p>
+                        <p class="text-muted">No ingredients found.</p>
                     </div>
-
                 </div>
             </div>
+
         </div>
     </div>
 </div>
