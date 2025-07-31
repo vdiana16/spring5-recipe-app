@@ -63,15 +63,16 @@
             <!-- Ingredients Card -->
             <div class="card mb-4">
                 <div class="card-header">
-                    <h2>Ingredients</h2>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li th:each="ingredient : ${recipe.ingredients}"
-                            th:text="${ingredient.amount + ' ' + (ingredient.uom != null ? ingredient.uom.description : '') + ' - ' + ingredient.description}">
-                            1 Teaspoon of Sugar
-                        </li>
-                    </ul>
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h2>Ingredients</h2>
+                        </div>
+                        <div class="col-auto">
+                            <a class="btn btn-outline-primary btn-sm"
+                               th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}"
+                               role="button">View All</a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
