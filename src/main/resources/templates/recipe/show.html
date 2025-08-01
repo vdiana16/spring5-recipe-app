@@ -15,84 +15,102 @@
 </head>
 <body>
 <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
-
-<div class="container my-5">
+<div class="container mt-4">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-lg-10">
 
-            <!-- Recipe Description -->
-            <div class="card mb-4 shadow">
-                <div class="card-header bg-primary text-white">
+            <!-- Description + Change Image -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
                     <h2 th:text="${recipe.description}">Recipe Description Here!</h2>
+                    <a class="btn btn-secondary btn-sm" th:href="@{'/recipe/' + ${recipe.id} + '/image'}">Change Image</a>
                 </div>
                 <div class="card-body">
-                    <div class="row mb-2">
-                        <div class="col-md-3 fw-bold">Categories:</div>
+                    <div class="row mb-3">
+                        <div class="col-md-3">
+                            <strong>Categories:</strong>
+                        </div>
                         <div class="col-md-9">
-                            <ul class="mb-0">
-                                <li th:each="category : ${recipe.categories}" th:text="${category.description}">Category</li>
+                            <ul>
+                                <li th:each="category : ${recipe.categories}" th:text="${category.description}"></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="row mb-2">
-                        <div class="col-md-3 fw-bold">Prep Time:</div>
-                        <div class="col-md-3" th:text="${recipe.prepTime + ' Min'}">30 Min</div>
-                        <div class="col-md-3 fw-bold">Difficulty:</div>
-                        <div class="col-md-3" th:text="${recipe.difficulty}">Easy</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-3 fw-bold">Cook Time:</div>
-                        <div class="col-md-3" th:text="${recipe.cookTime + ' Min'}">30 Min</div>
-                        <div class="col-md-3 fw-bold">Servings:</div>
-                        <div class="col-md-3" th:text="${recipe.servings}">4</div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-3 fw-bold">Source:</div>
-                        <div class="col-md-3" th:text="${recipe.source}">Source Name</div>
-                        <div class="col-md-3 fw-bold">URL:</div>
+
+                    <div class="row mb-3">
                         <div class="col-md-3">
-                            <a th:href="@{${recipe.url}}" target="_blank">View Original</a>
+                            <img th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                 class="img-fluid rounded"
+                                 alt="Recipe Image"
+                                 width="200" height="200">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <strong>Prep Time:</strong>
+                                    <p th:text="${recipe.prepTime + ' min'}">30 min</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Cook Time:</strong>
+                                    <p th:text="${recipe.cookTime + ' min'}">30 min</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Servings:</strong>
+                                    <p th:text="${recipe.servings}">4</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Difficulty:</strong>
+                                    <p th:text="${recipe.difficulty}">Easy</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>Source:</strong>
+                                    <p th:text="${recipe.source}">Source Name</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    <strong>URL:</strong>
+                                    <p>
+                                        <a th:href="${recipe.url}" target="_blank">View Original</a>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Ingredients Section -->
-            <div class="card mb-4 shadow">
-                <div class="card-header d-flex justify-content-between align-items-center bg-success text-white">
-                    <h3 class="mb-0">Ingredients</h3>
-                    <a class="btn btn-light btn-sm" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}">View</a>
+            <!-- Ingredients -->
+            <div class="card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h3>Ingredients</h3>
+                    <a class="btn btn-secondary btn-sm" th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}">View</a>
                 </div>
                 <div class="card-body">
                     <ul>
                         <li th:each="ingredient : ${recipe.ingredients}"
                             th:text="${ingredient.amount + ' ' + ingredient.uom.description + ' - ' + ingredient.description}">
-                            1 Teaspoon of Sugar
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <!-- Directions Section -->
-            <div class="card mb-4 shadow">
-                <div class="card-header bg-info text-white">
-                    <h3 class="mb-0">Directions</h3>
+            <!-- Directions -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Directions</h3>
                 </div>
                 <div class="card-body">
-                    <p th:text="${recipe.directions}">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
-                    </p>
+                    <p th:text="${recipe.directions}">Directions go here.</p>
                 </div>
             </div>
 
-            <!-- Notes Section -->
-            <div class="card shadow">
-                <div class="card-header bg-secondary text-white">
-                    <h3 class="mb-0">Notes</h3>
+            <!-- Notes -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h3>Notes</h3>
                 </div>
                 <div class="card-body">
-                    <p th:text="${recipe.notes.recipeNotes}">
-                        Notes go here.
+                    <p th:text="${recipe.notes != null ? recipe.notes.recipeNotes : 'No notes available.'}">
+                        Notes will be displayed here.
                     </p>
                 </div>
             </div>
@@ -100,6 +118,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>
